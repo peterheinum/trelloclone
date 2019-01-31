@@ -53,17 +53,28 @@ const jtrello = (function() {
   }
 
   function deleteList() {
+    $(this).closest('.list').remove();
     console.log("This should delete the list you clicked on");
   }
 
   /* =========== Metoder för att hantera kort i listor nedan =========== */
   function createCard(event) {
     event.preventDefault();
+    let nameinput = $(this).find('input');
+    let name = nameinput.val();
     console.log("This should create a new card");
+    $(this)
+      .closest('.add-new')
+        .append()
+          .before(`<li class="card"> ${name} <button class="button delete">X</button></li>`);
+    
+    $(this).find('input').val('');
+    
   }
 
   function deleteCard() {
     console.log("This should delete the card you clicked on");
+    $(this).closest('li.card').remove();    
   }
 
   // Metod för att rita ut element i DOM:en
