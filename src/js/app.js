@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-// require('webpack-jquery-ui');
+require('webpack-jquery-ui');
 import '../css/styles.css';
 
 /**
@@ -23,6 +23,7 @@ const jtrello = (function() {
     DOM.$columns = $('.column');
     DOM.$lists = $('.list');
     DOM.$cards = $('.card');
+    DOM.$listCards = $('list-cards');
     
     DOM.$newListButton = $('button#new-list');
     DOM.$deleteListButton = $('.list-header > button.delete');
@@ -72,6 +73,24 @@ const jtrello = (function() {
     
   }
 
+  function moveColumns() {
+    DOM.$columns.sortable({
+      connectWith: DOM.$columns
+    });
+  }
+
+  function moveCards(){
+    DOM.$listCards.sortable({
+      connectWith: DOM.$listCards
+    });
+  }
+
+  function createDialogs(){
+    DOM.$newListButton.dialog({
+      autoopen: false
+    });
+  }
+
   function deleteCard() {
     console.log("This should delete the card you clicked on");
     $(this).closest('li.card').remove();    
@@ -89,8 +108,10 @@ const jtrello = (function() {
     captureDOMEls();
     createTabs();
     createDialogs();
-
+    
     bindEvents();
+    moveColumns();
+    moveCards();
   }
 
   // All kod här
